@@ -1,0 +1,64 @@
+using UnityEngine;
+
+public class AudioManager : MonoBehaviour
+{
+    public static AudioManager instance;
+
+    public AudioSource bgmSource; // musik
+    public AudioSource sfxSource; // efek
+
+    public AudioClip bgmMenu;
+    public AudioClip bgmGame;
+    public AudioClip clickSound;
+    public AudioClip pauseSound;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    // 🎵 BGM
+    public void PlayBGM(AudioClip clip)
+    {
+        if (bgmSource.clip == clip && bgmSource.isPlaying) return;
+
+        bgmSource.Stop();
+        bgmSource.clip = clip;
+        bgmSource.loop = true;
+        bgmSource.Play();
+    }
+
+    public void PauseBGM()
+    {
+        bgmSource.Pause();
+    }
+
+    public void ResumeBGM()
+    {
+        bgmSource.UnPause();
+    }
+
+    public void StopBGM()
+    {
+        bgmSource.Stop();
+    }
+
+    // 🔊 SFX
+    public void PlaySFX(AudioClip clip)
+    {
+        sfxSource.PlayOneShot(clip);
+    }
+
+    public void StopAllSFX()
+    {
+        sfxSource.Stop();
+    }
+}
