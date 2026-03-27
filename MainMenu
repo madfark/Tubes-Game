@@ -1,0 +1,63 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class MainMenu : MonoBehaviour
+{
+    [Header("UI")]
+    public GameObject settingsPanel;
+
+    void Start()
+    {
+        // 🎵 Play musik menu saat masuk
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.PlayBGM(AudioManager.instance.bgmMenu);
+        }
+
+        // pastikan settings tertutup
+        if (settingsPanel != null)
+        {
+            settingsPanel.SetActive(false);
+        }
+    }
+
+    // ▶️ PLAY GAME
+    public void PlayGame()
+    {
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.PlaySFX(AudioManager.instance.clickSound);
+            AudioManager.instance.PlayBGM(AudioManager.instance.bgmGame);
+        }
+
+        SceneManager.LoadScene("GameScene");
+    }
+
+    // ⚙️ OPEN SETTINGS
+    public void OpenSettings()
+    {
+        if (AudioManager.instance != null)
+            AudioManager.instance.PlaySFX(AudioManager.instance.clickSound);
+
+        settingsPanel.SetActive(true);
+    }
+
+    // 🔙 CLOSE SETTINGS
+    public void CloseSettings()
+    {
+        if (AudioManager.instance != null)
+            AudioManager.instance.PlaySFX(AudioManager.instance.clickSound);
+
+        settingsPanel.SetActive(false);
+    }
+
+    // ❌ EXIT GAME
+    public void QuitGame()
+    {
+        if (AudioManager.instance != null)
+            AudioManager.instance.PlaySFX(AudioManager.instance.clickSound);
+
+        Application.Quit();
+        Debug.Log("Keluar Game");
+    }
+}
