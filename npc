@@ -1,0 +1,28 @@
+using UnityEngine;
+
+public class npc : MonoBehaviour
+{
+    // 1. TAMBAHKAN BARIS INI: Deklarasi variabel target
+    // Menggunakan 'public' agar bisa diisi langsung dari Unity Editor
+    public Transform target;
+
+    // (Opsional) Tambahkan speed jika NPC kamu bergerak
+    public float speed = 3f;
+
+    void Start()
+    {
+        transform.position = new Vector3(1, 1, 0);
+    }
+
+    void Update()
+    {
+        // 2. Sekarang variabel 'target' di baris 16 (atau sekitarnya) sudah bisa dibaca.
+        // Pastikan target tidak kosong (null) sebelum digunakan.
+        if (target != null)
+        {
+            // Contoh baris 16 milikmu mungkin mirip seperti ini:
+            // Menggerakkan NPC ke arah target
+            transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+        }
+    }
+}
