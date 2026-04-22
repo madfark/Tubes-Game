@@ -1,0 +1,33 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem; // WAJIB untuk InputValue
+
+public class PlayerRotate : MonoBehaviour
+{
+    private Vector2 mousePosition;
+
+    private void OnLook(InputValue value) // L besar biar konsisten
+    {
+        mousePosition = value.Get<Vector2>();
+    }
+
+    private void Update()
+    {
+        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(mousePosition);
+        LookAt(mouseWorld);
+    }
+
+    private float Angle(Vector3 from, Vector3 to)
+    {
+        Vector3 direction = to - from;
+        return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+    }
+
+    private void LookAt(Vector3 target)
+    {
+        float lookAngle = Angle(transform.position, target) + 90;
+
+        transform.eulerAngles = new Vector3(0, 0, lookAngle);
+    }
+}
